@@ -117,7 +117,7 @@ if __name__ == “__main__”:
              if (len(book) ==0):
                 break
              bookslist.append(book)
-    library_name = "Aryan's Library"
+    library_name = input("Enter a name for your library:\n")
     OWNER = Library(bookslist, library_name)
     print(f"Welcome to {library_name}\n")
     while (True):
