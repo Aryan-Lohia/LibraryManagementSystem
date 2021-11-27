@@ -61,6 +61,7 @@ class LibraryClass:
         if(self.View_Borrowed(borrowers_name)==1):
             try:
                 choice = int((input("Please input serial number of the book would you like to return?\n"))[0])
+                borrowers_booklist = self.borrowers_index[borrowers_name]
                 returned_book = borrowers_booklist[choice - 1]
                 print(f"{borrowers_name} has returned {returned_book}\n")
                 self.booklist[returned_book][0] = "AVAILABLE"
