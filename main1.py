@@ -1,15 +1,17 @@
 from Library import *
 from password_system import *
 if __name__ == "__main__":
-    bookslist=[]
     library_name = "Aryan's Library"
-    OWNER = LibraryClass(bookslist, library_name)
+    OWNER = LibraryClass(library_name)
     print(f"Welcome to {library_name}\n")
     while (True):
         authentication = False
 
         while(not authentication):
             user_name = (input("Please enter user's name\n")).upper().lstrip().rstrip()
+            if(user_name is None):
+                print("Invalid Username.Try again\n")
+                continue
             authentication=password_sys(user_name)
 
         print(f"Welcome {user_name}\n")
@@ -34,16 +36,3 @@ if __name__ == "__main__":
             for book in books:
                 print(f"{book} , ", end="")
             print("\b\b")
-
-
-
-
-
-
-
-
-
-
-
-
-
