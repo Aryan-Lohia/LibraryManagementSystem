@@ -51,7 +51,7 @@ class Library:
             print("You have not borrowed any books as of now.\n")
             return 0
     def Return_book(self, borrowers_name) -> int:
-        if (self.View_Borrowed(borrowers_name)==1)
+        if (self.View_Borrowed(borrowers_name)==1):
             try:
                 choice = int((input("Please input serial number of the book would you like to return?\n"))[0])
                 returned_book = borrowers_booklist[choice - 1]
