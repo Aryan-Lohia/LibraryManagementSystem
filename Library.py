@@ -109,7 +109,7 @@ def execute(obj, choice, user_name) -> None:
     else:
         print("Invalid Entry. Please try again")
 
-if __name__ == “__main__”:
+if __name__ == "__main__":
     bookslist=[]
     with open("books.txt") as books:
         while (True):
@@ -143,7 +143,7 @@ if __name__ == “__main__”:
             print(f"{borrower}\t\t\t",end="")
             for book in books:
                 print(f"{book} , ", end="")
-            print("\b")
+            print("\b\b")
 
 
 
