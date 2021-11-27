@@ -46,16 +46,12 @@ class Library:
             borrowers_booklist = self.borrowers_index[borrowers_name]
             for i, books in enumerate(borrowers_booklist):
                 print(f"{i + 1}.{books}")
+                return 1
         else:
             print("You have not borrowed any books as of now.\n")
-
-    def Return_book(self, borrowers_name) -> None:
-        register = list(self.borrowers_index.keys())
-        if borrowers_name in register:
-            print("These are the books you have borrowed:")
-            borrowers_booklist = self.borrowers_index[borrowers_name]
-            for i, books in enumerate(borrowers_booklist):
-                print(f"{i + 1}.{books}")
+            return 0
+    def Return_book(self, borrowers_name) -> int:
+        if (self.View_Borrowed(borrowers_name)==1)
             try:
                 choice = int((input("Please input serial number of the book would you like to return?\n"))[0])
                 returned_book = borrowers_booklist[choice - 1]
@@ -65,8 +61,6 @@ class Library:
                 if (not self.borrowers_index[borrowers_name]): del self.borrowers_index[borrowers_name]
             except:
                 print("Please enter a valid serial number and try again\n")
-        else:
-            print(f"{borrowers_name} has not borrowed any books.\n")
 
     def Add_book(self, book_name) -> None:
 
