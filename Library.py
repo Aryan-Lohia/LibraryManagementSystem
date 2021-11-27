@@ -2,6 +2,12 @@ class Library:
 
     def __init__(self, bookslist, library_name) -> None:
         self.booklist = {}
+        with open("books.txt") as books:
+            while (True):
+                book = (books.readline().strip("\n"))
+                if (len(book) ==0):
+                    break
+                bookslist.append(book)
         for books in bookslist:
             self.booklist[books.upper()]="AVAILABLE"
         self.library_name = library_name
