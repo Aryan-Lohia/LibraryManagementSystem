@@ -84,60 +84,25 @@ class Library:
             print("Sorry the book you need is not present in the library\n")
 
 
-def execute(obj, choice, user_name) -> None:
-    if choice == 1:
-        obj.Display_book()
-    elif choice == 2:
-        book = (input("Enter Name of book you want to search:\n")).upper()
-        obj.Search_book(book)
-    elif choice == 3:
-        book = int(input("Enter serial number of book you want to borrow:\n"))
-        obj.Lend_book(user_name, book)
-    elif choice == 4:
-        obj.Return_book(user_name)
-    elif choice == 5:
-        book = (input("Enter Name of book you want to add:\n")).upper()
-        obj.Add_book(book)
-    elif choice==6:
-        obj.View_Borrowed(user_name)
-    else:
-        print("Invalid Entry. Please try again")
+    def execute(self, choice, user_name) -> None:
+        if choice == 1:
+            self.Display_book()
+        elif choice == 2:
+            book = (input("Enter Name of book you want to search:\n")).upper()
+            self.Search_book(book)
+        elif choice == 3:
+            book = int(input("Enter serial number of book you want to borrow:\n"))
+            self.Lend_book(user_name, book)
+        elif choice == 4:
+            self.Return_book(user_name)
+        elif choice == 5:
+            book = (input("Enter Name of book you want to add:\n")).upper()
+            self.Add_book(book)
+        elif choice==6:
+            self.View_Borrowed(user_name)
+        else:
+            print("Invalid Entry. Please try again")
 
-if __name__ == "__main__":
-    bookslist=[]
-    with open("books.txt") as books:
-        while (True):
-             book = (books.readline().strip("\n"))
-             if (len(book) ==0):
-                break
-             bookslist.append(book)
-    library_name = input("Enter a name for your library:\n")
-    OWNER = Library(bookslist, library_name)
-    print(f"Welcome to {library_name}\n")
-    while (True):
-        user_name = (input("Please enter user's name\n")).upper()
-        print(f"Welcome {user_name}\n")
-        OWNER.Display_book()
-        while (True):
-            print(
-                "\nWhat would you like to do now?\nPress 1 to display booklist again\nPress 2 to search for a book in the booklist\nPress 3 to borrow a book\nPress 4 to return a book\nPress 5 to add a book to the booklist\nPress 6 to display your borrowed books\nPress q to quit\n")
-            choice = input()
-            if (choice.upper() != 'Q'):
-                execute(OWNER, int(choice), user_name)
-            else:
-                break
-        print("For Next User, Press 1. To quit library, press any other key\n")
-        if (input() == '1'):
-            continue
-        break
-    if OWNER.borrowers_index:
-        print("Books Not returned are:")
-        print("Borrower\t\tBooks")
-        for borrower,books in OWNER.borrowers_index.items():
-            print(f"{borrower}\t\t\t",end="")
-            for book in books:
-                print(f"{book} , ", end="")
-            print("\b\b")
 
 
 
