@@ -2,12 +2,6 @@ from Library import *
 from password_system import *
 if __name__ == "__main__":
     bookslist=[]
-    with open("books.txt") as books:
-        while (True):
-             book = (books.readline().strip("\n"))
-             if (len(book) ==0):
-                break
-             bookslist.append(book)
     library_name = "Aryan's Library"
     OWNER = LibraryClass(bookslist, library_name)
     print(f"Welcome to {library_name}\n")
