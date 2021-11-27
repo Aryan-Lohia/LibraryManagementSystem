@@ -3,4 +3,4 @@ The backend of a library management system as a beginner project.
 
 Steps:
 Add books for the library in "books.txt"
-Run main.py
+Run Library.py
