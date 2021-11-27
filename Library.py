@@ -1,15 +1,15 @@
-class Library:
+class LibraryClass:
 
-    def __init__(self, bookslist, library_name) -> None:
+    def __init__(self, library_name) -> None:
         self.booklist = {}
         with open("books.txt") as books:
             while (True):
-                book = (books.readline().strip("\n"))
-                if (len(book) ==0):
+                line = books.readline().strip("\n")
+                if (len(line) == 0):
                     break
-                bookslist.append(book)
-        for books in bookslist:
-            self.booklist[books.upper()]="AVAILABLE"
+                book= line[0:line.rindex(" ")]
+                link = line.split()[-1]
+                self.booklist[book.upper()]=["AVAILABLE", link]
         self.library_name = library_name
         self.borrowers_index = {}
 
@@ -27,7 +27,7 @@ class Library:
         except:
             print(f"Invalid serial no. Please choose a book from the list.\n")
             return
-        if self.booklist[book_name]=="LENDED":
+        if self.booklist[book_name][0]=="LENDED":
             print(f"Sorry {borrowers_name}. {book_name} has already been lended to ", end="")
             for borrower in self.borrowers_index:
                 if book_name in self.borrowers_index[borrower]:
@@ -38,13 +38,14 @@ class Library:
                     break
 
         elif book_name in self.booklist:
-            print(f"{book_name} has been lended to {borrowers_name}\n")
+            print(f"{book_name} has been lended to {borrowers_name}")
+            print(f"You may access the book at {self.booklist[book_name][1]}\n")
 
             if borrowers_name in self.borrowers_index.keys():
                 self.borrowers_index[borrowers_name].append(f"{book_name}")
             else:
                 self.borrowers_index[borrowers_name] = [f"{book_name}"]
-            self.booklist[book_name]="LENDED"
+            self.booklist[book_name][0]="LENDED"
 
     def View_Borrowed(self,borrowers_name) -> None:
         if borrowers_name in self.borrowers_index.keys():
@@ -52,28 +53,29 @@ class Library:
             borrowers_booklist = self.borrowers_index[borrowers_name]
             for i, books in enumerate(borrowers_booklist):
                 print(f"{i + 1}.{books}")
-                return 1
+            return 1
         else:
             print("You have not borrowed any books as of now.\n")
             return 0
-    def Return_book(self, borrowers_name) -> int:
-        if (self.View_Borrowed(borrowers_name)==1):
+    def Return_book(self, borrowers_name) -> None:
+        if(self.View_Borrowed(borrowers_name)==1):
             try:
                 choice = int((input("Please input serial number of the book would you like to return?\n"))[0])
                 returned_book = borrowers_booklist[choice - 1]
                 print(f"{borrowers_name} has returned {returned_book}\n")
-                self.booklist[returned_book] = "AVAILABLE"
+                self.booklist[returned_book][0] = "AVAILABLE"
                 borrowers_booklist.pop(choice - 1)
                 if (not self.borrowers_index[borrowers_name]): del self.borrowers_index[borrowers_name]
             except:
                 print("Please enter a valid serial number and try again\n")
 
-    def Add_book(self, book_name) -> None:
+
+    def Add_book(self, book_name,link) -> None:
 
         if book_name not in self.booklist:
-            self.booklist[book_name]="AVAILABLE"
+            self.booklist[book_name]=["AVAILABLE",link]
             with open("books.txt", "a") as books:
-                books.write(f"\n{book_name}")
+                books.write(f"\n{book_name} {link}")
             print("Your Book has been added. \nThank You for contributing to this library\n")
         else:
             print("This book already exists in library\n")
@@ -89,8 +91,7 @@ class Library:
         else:
             print("Sorry the book you need is not present in the library\n")
 
-
-    def execute(self, choice, user_name) -> None:
+    def User_choice(self, choice, user_name) -> None:
         if choice == 1:
             self.Display_book()
         elif choice == 2:
@@ -103,25 +104,9 @@ class Library:
             self.Return_book(user_name)
         elif choice == 5:
             book = (input("Enter Name of book you want to add:\n")).upper()
-            self.Add_book(book)
-        elif choice==6:
+            link = input("Enter link to the book you want to add:\n")
+            self.Add_book(book,link)
+        elif choice == 6:
             self.View_Borrowed(user_name)
         else:
             print("Invalid Entry. Please try again")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
